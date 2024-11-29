@@ -1,0 +1,14 @@
+void main() {
+  // Solicita os dados do usuário
+  print('Digite seu peso em kg:');
+  double peso = double.parse(stdin.readLineSync()!);
+
+  print('Digite sua altura em metros:');
+  double altura = double.parse(stdin.readLineSync()!);
+
+  // Calcula o IMC
+  double imc = peso / (altura * altura);
+
+  // Imprime o resultado
+  print('Seu IMC é: $imc');
+}
