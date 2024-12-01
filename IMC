@@ -1,11 +1,91 @@
-// Definindo as variáveis com valores pré-definidos
-double peso = 70;
-double altura = 1.75;
+import 'package:flutter/material.dart';
 
 void main() {
-  // Calculando o IMC
-  double imc = peso / (altura * altura);
+  runApp(const MyApp());
+}
 
-  // Imprimindo o resultado
-  print('Seu IMC é: $imc');
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Calculadora de IMC',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Calculadora de IMC'),
+        ),
+        body: const MyCustomForm(),
+      ),
+    );
+  }
+}
+
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  MyCustomFormState createState() => MyCustomFormState();
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController pesoController = TextEditingController();
+  final TextEditingController alturaController = TextEditingController();
+  String resultado = '';
+
+  void calcularIMC() {
+    if (_formKey.currentState!.validate()) {
+      double peso = double.parse(pesoController.text);
+      double altura = double.parse(alturaController.text);
+      double imc = peso / (altura * altura);
+
+      setState(() {
+        resultado = 'Seu IMC é: $imc';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          TextFormField(
+            controller: pesoController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Peso (kg)',
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira seu peso';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: alturaController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Altura (m)',
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira sua altura';
+              }
+              return null;
+            },
+          ),
+          ElevatedButton(
+            onPressed: calcularIMC,
+            child: const Text('Calcular IMC'),
+          ),
+          Text(resultado),
+        ],
+      ),
+    );
+  }
 }
