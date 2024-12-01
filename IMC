@@ -1,14 +1,11 @@
+// Definindo as variáveis com valores pré-definidos
+double peso = 70;
+double altura = 1.75;
+
 void main() {
-  // Solicita os dados do usuário
-  print('Digite seu peso em kg:');
-  double peso = double.parse(stdin.readLineSync()!);
-
-  print('Digite sua altura em metros:');
-  double altura = double.parse(stdin.readLineSync()!);
-
-  // Calcula o IMC
+  // Calculando o IMC
   double imc = peso / (altura * altura);
 
-  // Imprime o resultado
+  // Imprimindo o resultado
   print('Seu IMC é: $imc');
 }
